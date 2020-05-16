@@ -1,0 +1,13 @@
+{
+  "name": "examples.short.is",
+  "version": "1.0.0",
+  "author": "Alan Shortis",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "d": "browser-sync start --server --watch --no-notify"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.26.7"
+  }
+}
