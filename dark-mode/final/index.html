@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Detect, Set and save Dark Mode</title>
+    <style>
+      :root {
+        --background: #f7f3e9;
+        --button-dark: #383735;
+        --button-light: #f7f3e9;
+        --highlight: #dd6969;
+        --margin: 1rem;
+        --mid: #787671;
+        --transition-speed: 200ms;
+        --transition-timing: ease;
+        --type: #383735;
+      }
+
+      :root body.dark {
+        --background: #383735;
+        --type: #f7f3e9;
+      }
+
+      html {
+        height: 100%;
+      }
+
+      body {
+        align-items: center;
+        background-color: var(--background);
+        color: var(--type);
+        display: flex;
+        font-family: Constantia, Georgia, serif;
+        justify-content: center;
+        line-height: 1.5;
+        margin: 0;
+        min-height: 100%;
+        transition: all var(--transition-speed) var(--transition-timing);
+      }
+
+      p {
+        font-size: 1.5rem;
+        padding: calc(var(--margin) * 2);
+      }
+
+      .container {
+        border-top-right-radius: var(--margin);
+        border: 1px solid var(--mid);
+        margin: var(--margin);
+        padding: var(--margin) 0;
+      }
+
+      .color-switch {
+        display: flex;
+        justify-content: flex-end;
+        padding: 0 var(--margin);
+      }
+
+      button {
+        background-color: var(--button-light);
+        border-radius: 50%;
+        border: 2px solid var(--highlight);
+        cursor: pointer;
+        height: 2em;
+        margin-left: var(--margin);
+        transition: border-color var(--transition-speed) var(--transition-timing);
+        width: 2em;
+      }
+
+      button.dark {
+        background-color: var(--button-dark);
+        border-color: var(--button-light);
+      }
+
+      body.dark button {
+        border-color: var(--button-light);
+      }
+
+      body.dark button.dark {
+        border-color: var(--highlight);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="color-switch">
+        <button class="js--change-scheme" data-scheme="light"></button>
+        <button class="dark js--change-scheme" data-scheme="dark"></button>
+      </div>
+
+      <p>
+        You grabbed my hand<br />
+        And we fell into it<br />
+        Like a daydream<br />
+        Or a fever
+      </p>
+    </div>
+    <script>
+      const schemeToggle = document.querySelectorAll('.js--change-scheme');
+      const storedScheme = localStorage.getItem('as-scheme');
+      const { classList } = document.body;
+
+      function setInitialScheme() {
+        if (storedScheme) {
+          classList.add(storedScheme);
+          return;
+        }
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          classList.add('dark');
+        }
+      }
+
+      function changeScheme(scheme) {
+        if (scheme === 'dark') {
+          classList.add('dark');
+          localStorage.setItem('as-scheme', 'dark');
+        } else {
+          classList.remove('dark');
+          localStorage.setItem('as-scheme', 'light');
+        }
+      }
+
+      schemeToggle.forEach((button) => {
+        button.addEventListener('click', () => {
+          changeScheme(button.dataset.scheme);
+        });
+      });
+
+      setInitialScheme();
+    </script>
+  </body>
+</html>
