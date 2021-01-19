@@ -161,5 +161,11 @@
         <use xlink:href="#bell"></use>
       </svg>
     </div>
+    <script>
+      const safeAreaInsetBottom = getComputedStyle(document.documentElement).getPropertyValue(
+        '--safe-area-inset-bottom'
+      );
+      console.log(safeAreaInsetBottom);
+    </script>
   </body>
 </html>
