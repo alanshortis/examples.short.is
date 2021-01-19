@@ -163,12 +163,20 @@
       </svg>
     </div>
     <script>
-      const safeAreaInsetBottom = getComputedStyle(document.documentElement).getPropertyValue(
-        '--safe-area-inset-bottom'
-      );
+      const varValueSpan = document.querySelector('.js-env-val');
+      const varName = '--safe-area-inset-bottom';
 
-      document.querySelector('.js-env-val').innerText = safeAreaInsetBottom;
-      console.log(safeAreaInsetBottom);
+      const updateValueSpan = () => {
+        console.log('called');
+        varValueSpan.innerText = getComputedStyle(document.documentElement).getPropertyValue(
+          varName
+        );
+      };
+
+      updateValueSpan();
+
+      // In the real world, we'd throttle all scroll events.
+      window.addEventListener('scroll', () => updateValueSpan());
     </script>
   </body>
 </html>
